@@ -33,15 +33,20 @@
                 border-radius: 3%;
             }
 
+            .titleHead {
+                font-size: 40px;
+                font-weight: 100;
+                font-family: 'Courier New', Courier, monospace;
+            }
+
         </style>
     </head>
 
     <body>
         
         <div id="container">
-            <div>
-                <img id="file" src="http://n.sinaimg.cn/edu/11_img/upload/f41295ab/266/w640h426/20181114/Ve-M-hnvukfe8788073.jpg" loading="lazy"/></a>
-            </div>
+            <div class="titleHead" id="UserName"></div>
+            <div><img id="file" src="http://n.sinaimg.cn/edu/11_img/upload/f41295ab/266/w640h426/20181114/Ve-M-hnvukfe8788073.jpg" loading="lazy"/></a></div>
         </div>
 
         <h4 style="color:blue">Choose a robustness level below</h4>
@@ -72,6 +77,13 @@
         <script type="text/javascript" src="../src/setimg.js"></script>
         <script type="text/javascript" src="../src/main.js"></script>
         <script type="text/javascript">
+        window.onload = getuserName;
+        function getuserName(){
+            var userName="那抹秋意"
+            console.log(window.localStorage.getItem("username"))
+            if(window.localStorage.getItem("username")!=null) userName="那抹秋意————"+window.localStorage.getItem("username");
+            document.getElementById('UserName').innerHTML=userName;
+        }
         function writeIMG(){
             $("#resultimg").hide();
             $("#resultimg").attr('src','');

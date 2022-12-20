@@ -33,17 +33,31 @@
                 border-radius: 3%;
             }
 
+            .titleHead {
+                font-size: 40px;
+                font-weight: 100;
+                font-family: 'Courier New', Courier, monospace;
+            }
+
         </style>
     </head>
 
     <body>
 
         <div id="container">
-            <div id="pic">
+            <div class="titleHead" id="UserName"></div>
             <img src="https://box.nju.edu.cn/f/c860f4003cc24bf9a8c3/?dl=1" loading="lazy"/></a>
-
-            </div>
         </div>
+
+        <script type="text/javascript">
+            window.onload = getuserName;
+            function getuserName(){
+                var userName="那抹秋意"
+                console.log(window.localStorage.getItem("username"))
+                if(window.localStorage.getItem("username")!=null) userName="那抹秋意————"+window.localStorage.getItem("username");
+                document.getElementById('UserName').innerHTML=userName;
+            }
+        </script>
     </body>
     </html>
 
