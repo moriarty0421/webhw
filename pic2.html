@@ -1,0 +1,100 @@
+
+    <html>
+
+    <head>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                transition: 0.3s;
+            }
+
+            body {
+                background-color: aliceblue;
+                text-align: center;
+            }
+
+            #container {
+                border-radius: 40px;
+                background-color: white;
+                margin-top: 5%;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 40px;
+                max-width: 80%;
+        
+            }
+
+            img {
+                width: 80%;
+                height: 80%;
+                object-fit: cover;
+                border-radius: 3%;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        
+        <div id="container">
+            <div>
+                <img id="file" src="http://n.sinaimg.cn/edu/11_img/upload/f41295ab/266/w640h426/20181114/Ve-M-hnvukfe8788073.jpg" loading="lazy"/></a>
+            </div>
+        </div>
+
+        <h4 style="color:blue">Choose a robustness level below</h4>
+        <div>
+            <p>
+            <p><label for="m0"><input type="radio" name="mode" id="m0" value=0 checked="checked" /> Level 0 - Best Secrecy, No Robustness to Compression</label></p>
+            <p><label for="m1"><input type="radio" name="mode" id="m1" value=1 /> Level 1</label></p>
+            <p><label for="m2"><input type="radio" name="mode" id="m2" value=2 /> Level 2</label></p>
+            <p><label for="m3"><input type="radio" name="mode" id="m3" value=3 /> Level 3</label></p>
+            <p><label for="m4"><input type="radio" name="mode" id="m4" value=4 /> Level 4</label></p>
+            <p><label for="m5"><input type="radio" name="mode" id="m5" value=5 /> Level 5 - Best Robustness to Compression, Worst Secrecy</label></p>
+            </p>
+        </div>
+        <h4 style="color:blue">What do you want to write?</h4>
+        <p><textarea id="msg" style="width:60%;height:50px;">This Awesome Message Will be Written into the Image!</textarea></p>
+        <h4 style="color:blue">Results</h4>
+        <p><div id="result">Please finish and click a button below. Your result will then show up here!</div></p>
+        <p><img id="resultimg" style="display:none" src="" /></p>
+      
+        <a href="javascript: writeIMG()" class="button">Write message into image</a>
+
+        <script type="text/javascript" src="../javascripts/jquery.min.js"></script> 
+        <script type="text/javascript" src="../src/sha512.js"></script>
+        <script type="text/javascript" src="../src/mersenne-twister.js"></script>
+        <script type="text/javascript" src="../src/utf_8.js"></script>
+        <script type="text/javascript" src="../src/utils.js"></script>
+        <script type="text/javascript" src="../src/readimg.js"></script>
+        <script type="text/javascript" src="../src/setimg.js"></script>
+        <script type="text/javascript" src="../src/main.js"></script>
+        <script type="text/javascript">
+        function writeIMG(){
+            $("#resultimg").hide();
+            $("#resultimg").attr('src','');
+            $("#result").html('Processing...');
+            function writefunc(){
+                var selectedVal = '';
+                var selected = $("input[type='radio'][name='mode']:checked");
+                if (selected.length > 0) {
+                    selectedVal = selected.val();
+                }
+                var t = writeMsgToCanvas('canvas',$("#msg").val(),"",selectedVal);
+                if(t===true){
+                    var myCanvas = document.getElementById("canvas");
+                    var image = myCanvas.toDataURL("image/png");
+                    $("#resultimg").attr('src',image);
+                    $("#result").html('Success! Save the result image below and send it to others!');
+                    $("#resultimg").show();
+                } else $("#result").html(t);
+            }
+            loadIMGtoCanvas('file','canvas',writefunc,500);
+        }
+        </script>
+    </body>
+    </html>
+
+    
